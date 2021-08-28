@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.emreaygun.navigationbar.R
-
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class HomeFragment : Fragment() {
-
+    val fragmentManager =susupportFragmentManager
+    val fragmentTransaction=fragmentManager.beginTransaction()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         }
 
@@ -27,8 +30,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var name=HomeFragmentDirections.actionHomeFragmentToSettingFragment("nice")
-        println(name.toString())
+        var name=HomeFragmentDirections.actionHomeFragmentToSettingFragment("emre")
+         Navigation.findNavController(view).navigate(name)
+        bottom_navigation.setOnNavigationItemReselectedListener {
+            when(it.itemId){
+                R.id.ic_home->fragmentTransaction.add(R.id.fl_wrapper,HomeFragment()).commit()
+                R.id.ic_favorite->fragmentTransaction.add(R.id.fl_wrapper,FavoriteFragment()).commit()
+                R.id.ic_setting->fragmentTransaction.add(R.id.fl_wrapper,SettingFragment()).commit()
+            }
+        }
     }
+
 
 }
