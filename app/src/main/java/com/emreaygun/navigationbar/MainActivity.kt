@@ -2,6 +2,7 @@ package com.emreaygun.navigationbar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.emreaygun.navigationbar.fragments.FavoriteFragment
 import com.emreaygun.navigationbar.fragments.HomeFragment
@@ -16,17 +17,18 @@ class MainActivity : AppCompatActivity() {
         val homeFragment =HomeFragment()
         val favoriteFragment = FavoriteFragment()
         val settingFragment = SettingFragment()
-        makeCurrentFragment(homeFragment)
-        val fragmentManager =supportFragmentManager
-        val fragmentTransaction=fragmentManager.beginTransaction()
+        makeCurrentFragment(favoriteFragment)
+       // val fragmentManager =supportFragmentManager
+       // val fragmentTransaction=fragmentManager.beginTransaction()
 
 
          bottom_navigation.setOnNavigationItemReselectedListener {
             when(it.itemId){
-                R.id.ic_home->fragmentTransaction.add(R.id.fl_wrapper,homeFragment).commit()
-                R.id.ic_favorite->fragmentTransaction.add(R.id.fl_wrapper,favoriteFragment).commit()
-                R.id.ic_setting->fragmentTransaction.add(R.id.fl_wrapper,settingFragment).commit()
+                R.id.ic_home->makeCurrentFragment(homeFragment)
+                R.id.ic_favorite->makeCurrentFragment(favoriteFragment)
+                R.id.ic_setting->makeCurrentFragment(settingFragment)
             }
+            true
         }
 
 
